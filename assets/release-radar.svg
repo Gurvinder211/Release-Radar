@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <defs>
+    <linearGradient id="sweep" x1="128" y1="128" x2="194" y2="62" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#35D6B0" stop-opacity=".38"/>
+      <stop offset="1" stop-color="#35D6B0" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="ring" x1="65" y1="65" x2="191" y2="191" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#70F0CB"/>
+      <stop offset="1" stop-color="#2DBB9E"/>
+    </linearGradient>
+  </defs>
+  <rect x="8" y="8" width="240" height="240" rx="56" fill="#10182B"/>
+  <circle cx="128" cy="128" r="79" fill="#14223A" stroke="#2B405D" stroke-width="2"/>
+  <path d="M128 128V49a79 79 0 0 1 55.9 23.1L128 128Z" fill="url(#sweep)"/>
+  <circle cx="128" cy="128" r="56" fill="none" stroke="#334B69" stroke-width="2"/>
+  <circle cx="128" cy="128" r="33" fill="none" stroke="#334B69" stroke-width="2"/>
+  <path d="M128 49v158M49 128h158" stroke="#2B405D" stroke-width="2"/>
+  <circle cx="128" cy="128" r="79" fill="none" stroke="url(#ring)" stroke-width="5"/>
+  <path d="m128 128 55.9-55.9" fill="none" stroke="#70F0CB" stroke-linecap="round" stroke-width="4"/>
+  <circle cx="184" cy="72" r="7" fill="#FFD166"/>
+  <circle cx="128" cy="128" r="10" fill="#70F0CB"/>
+  <circle cx="128" cy="128" r="4" fill="#10182B"/>
+</svg>

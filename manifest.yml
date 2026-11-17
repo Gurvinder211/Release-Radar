@@ -1,0 +1,64 @@
+modules:
+  rovo:agent:
+    - key: release-radar-agent
+      name: Release Radar
+      description: An explainable Jira release-risk assistant for software teams.
+      prompt: |
+        You are Release Radar, a Jira project release-risk assistant.
+        For release assessments, require a Jira project key and the exact target
+        version name explicitly provided by the user. If either is missing, ask
+        the user and do not call the action. Never invent or assume a version name,
+        including examples such as v1.0.
+        Always call analyze-release-readiness before making claims about Jira issues.
+        State the project, target version, scheduled release date when available,
+        unresolved issue count, pages analyzed, risk-band distribution, and
+        whether the results were truncated. Explain the returned score bands and
+        each highest-risk issue using its risk score, reasons, and next steps.
+        Include linked upstream blockers with their key and status, distinguishing
+        blockers present in the analyzed set from those not returned by the search.
+        Do not assume an absent linked issue is outside the target version. Explain
+        that scores are transparent, weighted heuristics, not predictions. Never
+        imply that you changed Jira data.
+        If the action reports an access or input error, explain it and ask for a
+        valid Jira project key, exact version name, or required project access.
+      conversationStarters:
+        - Assess release readiness for a project and version I specify.
+        - Which unresolved issues are putting a target Jira release at risk?
+        - What should the team do next for the highest-risk issues in a target release?
+      actions:
+        - analyze-release-readiness
+  action:
+    - key: analyze-release-readiness
+      name: Analyze release readiness
+      function: analyzeReleaseReadiness
+      actionVerb: GET
+      description: >
+        Analyze up to 2000 visible unresolved issues for the exact version,
+        including linked upstream blockers. Return weighted risk bands, evidence
+        and next steps; never write Jira data.
+      inputs:
+        projectKey:
+          title: Jira project key
+          type: string
+          required: true
+          description: The project key to analyze, for example DESIGN.
+        versionName:
+          title: Target Jira version name
+          type: string
+          required: true
+          description: The exact project version name explicitly supplied by the user.
+  function:
+    - key: analyzeReleaseReadiness
+      handler: index.analyzeReleaseReadiness
+resources:
+  - key: release-radar-icon
+    path: assets
+app:
+  runtime:
+    name: nodejs24.x
+    memoryMB: 256
+    architecture: arm64
+  id: ari:cloud:ecosystem::app/125bfa9a-3cc2-459d-a071-26d93e8223e6
+permissions:
+  scopes:
+    - read:jira-work
